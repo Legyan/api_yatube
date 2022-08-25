@@ -2,15 +2,17 @@ from rest_framework import serializers
 from rest_framework.relations import SlugRelatedField
 
 
-from posts.models import Comment, Post
+from posts.models import Comment, Post, Group
 
 
 class PostSerializer(serializers.ModelSerializer):
     author = SlugRelatedField(slug_field='username', read_only=True)
+    image = serializers.StringRelatedField()
 
     class Meta:
         fields = '__all__'
         model = Post
+        read_only_fields = ('author', 'pub_date')
 
 
 class CommentSerializer(serializers.ModelSerializer):
