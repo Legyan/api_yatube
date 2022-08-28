@@ -8,12 +8,12 @@ class PostSerializer(serializers.ModelSerializer):
     """Сериализатор постов."""
 
     author = SlugRelatedField(slug_field='username', read_only=True)
-    image = serializers.StringRelatedField()
+    image = serializers.CharField(read_only=True)
 
     class Meta:
         fields = '__all__'
         model = Post
-        read_only_fields = ('author', 'pub_date')
+        read_only_fields = ('author', 'image', 'pub_date')
 
 
 class GroupSerializer(serializers.ModelSerializer):
