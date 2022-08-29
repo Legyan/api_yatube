@@ -11,8 +11,8 @@ class PostSerializer(serializers.ModelSerializer):
     image = serializers.CharField(read_only=True)
 
     class Meta:
-        fields = '__all__'
         model = Post
+        fields = '__all__'
         read_only_fields = ('author', 'image', 'pub_date')
 
 
@@ -20,8 +20,8 @@ class GroupSerializer(serializers.ModelSerializer):
     """Сериализатор групп."""
 
     class Meta:
-        fields = '__all__'
         model = Group
+        fields = '__all__'
 
 
 class CommentSerializer(serializers.ModelSerializer):
@@ -32,8 +32,8 @@ class CommentSerializer(serializers.ModelSerializer):
     )
 
     class Meta:
-        fields = '__all__'
         model = Comment
+        fields = '__all__'
         read_only_fields = ('author', 'created', 'post')
 
 
@@ -44,8 +44,8 @@ class FollowSerializer(serializers.ModelSerializer):
     following = serializers.CharField()
 
     class Meta:
-        fields = '__all__'
         model = Follow
+        fields = '__all__'
 
     def create(self, validated_data):
         following_username = validated_data.pop('following')
