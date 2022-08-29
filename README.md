@@ -8,22 +8,151 @@ Yatube — cоциальная сеть с возможностями публи
 Кроме текста, публикация может сдержать изображение, а также относиться к определённой группе публикаций.
 В этом проекте реализовано API на Django REST Framework для взаимодействия с Yatube.
 
+## Стек технологий
 
-### API
+![python version](https://img.shields.io/badge/Python-3.8-yellowgreen) 
+
+![python version](https://img.shields.io/badge/Django-2.2.16-yellowgreen)
+
+![python version](https://img.shields.io/badge/djangorestframework-3.12.4-yellowgreen) 
+
+
+## API
 
 API позволяет взаимодействовать со следующими сущностями:
 
-- посты (получить список постов, создать пост, получить пост, обновить пост, удалить пост)
+#### Посты 
+получение списка постов, создание поста, получение поста, обновление поста, удаление поста
 
-- коментарии (получить список комментариев к посту, создать комментарий к посту, получить комментарий, обновить комментарий, удалить комментарий)
+Например:
 
-- группы (получить список всех групп, получить группу)
+GET request ```http://127.0.0.1:8000/api/v1/posts/```
 
-- подписки (получить список подписок, создать подписку на пользователя)
+Response
+```
+{
+  "count": 123,
+  "next": "http://api.example.org/accounts/?offset=400&limit=100",
+  "previous": "http://api.example.org/accounts/?offset=200&limit=100",
+  "results": [
+    {
+      "id": 1,
+      "author": "string",
+      "text": "string",
+      "pub_date": "2021-10-14T20:41:29.648Z",
+      "image": "string",
+      "group": 1
+    }
+  ]
+}
+```
 
-- JWT-токен (получение или обновление токена авторизации)
+POST request ```http://127.0.0.1:8000/api/v1/posts/```
+```
+{
+"text": "string",
+"image": "string",
+"group": 1
+}
+```
+Response
+```
+{
+  "id": 1,
+  "author": "string",
+  "text": "string",
+  "pub_date": "2022-08-24T14:15:22Z",
+  "image": "string",
+  "group": 1
+}
+```
+#### Коментарии
+получение списка комментариев к посту, создание комментария к посту, получение комментария, обновление комментария, удаление комментария
 
-[Документация API с примерами запросов (yaml)](https://github.com/Legyan/api_final_yatube/blob/master/yatube_api/static/redoc.yaml)
+Например:
+
+GET request ```http://127.0.0.1:8000/api/v1/posts/1/comments/1/```
+
+Response
+```
+{
+"id": 1,
+"author": "string",
+"text": "string",
+"created": "2022-08-24T14:15:22Z",
+"post": 1
+}
+```
+
+POST request ```http://127.0.0.1:8000/api/v1/posts/1/comments/```
+```
+{
+  "text": "string"
+}
+```
+
+Response
+```
+{
+"id": 1,
+"author": "string",
+"text": "string",
+"created": "2022-08-24T14:15:22Z",
+"post": 1
+}
+```
+
+#### Группы
+получение списка всех групп, получение группы
+
+Например:
+
+GET request ```http://127.0.0.1:8000/api/v1/groups/```
+
+Response
+```
+[
+  {
+    "id": 1,
+    "title": "string",
+    "slug": "string",
+    "description": "string"
+  }
+]
+```
+#### Подписки
+получение списка подписок, создание подписки на пользователя
+
+Например:
+
+GET request ```http://127.0.0.1:8000/api/v1/follow/```
+
+Response
+```
+[
+  {
+    "user": "string",
+    "following": "string"
+  }
+]
+```
+
+#### JWT-токен
+получение или обновление токена авторизации
+
+Например:
+
+GET request ```http://127.0.0.1:8000/api/v1/jwt/create/```
+
+Response
+```
+{
+  "refresh": "string.string.string",
+  "access": "string.string.string"
+}
+```
+
+[Полная документация API со всеми примерами запросов (yaml)](https://github.com/Legyan/api_final_yatube/blob/master/yatube_api/static/redoc.yaml)
 
 На запущенном проекте документация доступна по адресу: ```/redoc/```
 
@@ -43,17 +172,19 @@ cd api_final_yatube
 Cоздать и активировать виртуальное окружение:
 
 ```
-python3 -m venv env
+windows: python -m venv env
+linux: python3 -m venv env
 ```
 
 ```
-source env/bin/activate
+windows: source env/Scripts/activate
+linux: source env/bin/activate
 ```
 
 Установить зависимости из файла requirements.txt:
 
 ```
-python3 -m pip install --upgrade pip
+python -m pip install --upgrade pip
 ```
 
 ```
@@ -63,11 +194,11 @@ pip install -r requirements.txt
 Выполнить миграции:
 
 ```
-python3 manage.py migrate
+python manage.py migrate
 ```
 
 Запустить проект:
 
 ```
-python3 manage.py runserver
+python manage.py runserver
 ```
