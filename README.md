@@ -1,5 +1,5 @@
-# api_final_yatube
-API для работы с Yatube (проект Яндекс.Практикум)
+# api_yatube
+API для работы с Yatube
 
 
 ## Описание
@@ -16,6 +16,51 @@ Yatube — cоциальная сеть с возможностями публи
 
 ![python version](https://img.shields.io/badge/djangorestframework-3.12.4-yellowgreen) 
 
+## Запуск проектов
+
+Клонировать репозиторий и перейти в него в командной строке:
+
+```
+git clone https://github.com/legyan/api_yatube.git
+```
+
+```
+cd api_yatube
+```
+
+Cоздать и активировать виртуальное окружение:
+
+```
+windows: python -m venv env
+linux: python3 -m venv env
+```
+
+```
+windows: source env/Scripts/activate
+linux: source env/bin/activate
+```
+
+Установить зависимости из файла requirements.txt:
+
+```
+python -m pip install --upgrade pip
+```
+
+```
+pip install -r requirements.txt
+```
+
+Выполнить миграции:
+
+```
+python manage.py migrate
+```
+
+Запустить проект:
+
+```
+python manage.py runserver
+```
 
 ## API
 
@@ -32,8 +77,8 @@ Response
 ```
 {
   "count": 123,
-  "next": "http://api.example.org/accounts/?offset=400&limit=100",
-  "previous": "http://api.example.org/accounts/?offset=200&limit=100",
+  "next": "http://127.0.0.1:8000/api/v1/posts/?offset=400&limit=100",
+  "previous": "http://127.0.0.1:8000/api/v1/posts/?offset=200&limit=100",
   "results": [
     {
       "id": 1,
@@ -55,6 +100,7 @@ POST request ```http://127.0.0.1:8000/api/v1/posts/```
 "group": 1
 }
 ```
+
 Response
 ```
 {
@@ -66,6 +112,7 @@ Response
   "group": 1
 }
 ```
+
 #### Коментарии
 получение списка комментариев к посту, создание комментария к посту, получение комментария, обновление комментария, удаление комментария
 
@@ -155,50 +202,3 @@ Response
 [Полная документация API со всеми примерами запросов (yaml)](https://github.com/Legyan/api_final_yatube/blob/master/yatube_api/static/redoc.yaml)
 
 На запущенном проекте документация доступна по адресу: ```/redoc/```
-
-
-## Как запустить проект:
-
-Клонировать репозиторий и перейти в него в командной строке:
-
-```
-git clone https://github.com/legyan/api_final_yatube.git
-```
-
-```
-cd api_final_yatube
-```
-
-Cоздать и активировать виртуальное окружение:
-
-```
-windows: python -m venv env
-linux: python3 -m venv env
-```
-
-```
-windows: source env/Scripts/activate
-linux: source env/bin/activate
-```
-
-Установить зависимости из файла requirements.txt:
-
-```
-python -m pip install --upgrade pip
-```
-
-```
-pip install -r requirements.txt
-```
-
-Выполнить миграции:
-
-```
-python manage.py migrate
-```
-
-Запустить проект:
-
-```
-python manage.py runserver
-```
